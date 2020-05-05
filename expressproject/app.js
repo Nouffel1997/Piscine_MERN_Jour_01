@@ -3,10 +3,48 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+const {MongoClient} = require('mongodb');
+
+
 
  var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
-var nameRouter = require('../ex_04/server');
+var nameRouter = require('./routes/server');
+
+const uri ='mongodb+srv://dbNouf:Noufnouf954@cluster0-6uylk.mongodb.net/test?retryWrites=true&w=majority';
+
+const client = new MongoClient(uri);
+
+await client.connect();
+
+
+
+
+
+try {
+  await client.connect();
+
+  await listDatabases(client);
+
+} catch (e) {
+  console.error(e);
+}
+
+
+finally {
+  await client.close();
+}
+
+
+main().catch(console.error);
+
+
+
+
+
+
+
 
 var app = express();
 
@@ -41,3 +79,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+

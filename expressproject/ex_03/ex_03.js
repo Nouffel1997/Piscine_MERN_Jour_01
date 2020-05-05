@@ -1,0 +1,8 @@
+> db.students.insert({"firstname": {type: "String"}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({"lastname": {type: "String"}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({"email": {pattern: " ^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$"}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({"phone": {type: "Integer"}})
+WriteResult({ "nInserted" : 1 })
