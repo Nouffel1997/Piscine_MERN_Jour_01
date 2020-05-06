@@ -3,44 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
-const {MongoClient} = require('mongodb');
-
-
-
- var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-var nameRouter = require('./routes/server');
-
-const uri ='mongodb+srv://dbNouf:Noufnouf954@cluster0-6uylk.mongodb.net/test?retryWrites=true&w=majority';
-
-const client = new MongoClient(uri);
-
-await client.connect();
 
 
 
 
-
-try {
-  await client.connect();
-
-  await listDatabases(client);
-
-} catch (e) {
-  console.error(e);
-}
-
-
-finally {
-  await client.close();
-}
-
-
-main().catch(console.error);
-
-
-
+ var indexRouter = require('./ex_01/index');
+ var welcomeRouter = require('/views/index.html')
 
 
 
@@ -59,8 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
  app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-app.use('/name', nameRouter);
+ app.use('/welcome', welcomeRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

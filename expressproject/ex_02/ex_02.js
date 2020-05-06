@@ -1,4 +1,4 @@
-show dbs
-use mern-pool
-db
-db.a.insert({"name":"bob"})
+// show dbs
+// use mern-pool
+// db
+// db.a.insert({"name":"bob"})
