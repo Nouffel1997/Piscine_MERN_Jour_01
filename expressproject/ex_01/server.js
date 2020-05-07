@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const sha1 = require('sha1');
 var mongo = require('mongodb').MongoClient;
 mongoose.connect('mongodb://localhost:27042/mern-pool');
 var db = mongoose.connection;
@@ -19,9 +20,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 var userSchema = new mongoose.Schema({
-    login: { type: String, required: true, index: { unique: true } },
+    // id: { type: Number},
+    login: { type: String, required: true, index: { unique: true }, minlength: 5, maxlength: 20 },
     email: {type: String, required: true, index: { unique: true }, pattern: " ^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$"} ,
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    type: { type: Boolean}
 
 });
 var UserModel = mongoose.model('membre', userSchema);
@@ -36,7 +39,7 @@ app.route('/register')
         res.sendFile(__dirname + '/index.html')
     })
     .post(function (req, res) {
-        bcrypt.hash(req.body.password, 10, function (err, hash) {
+        bcrypt.hash(sha1(req.body.password), 10, function (err, hash) {
             var login = req.body.login;
             var email = req.body.email;
             var pass = hash;
