@@ -22,7 +22,7 @@ users.post('/register', (req, res) => {
   })
     .then(user => {
       if (!user) {
-        bcrypt.hash.sha1(req.body.password, 1, (err, hash) => {
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
           userData.password = hash
           User.create(userData)
             .then(user => {
